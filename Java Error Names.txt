@@ -1,0 +1,19 @@
+Exception Types in Java: 
+
+NumberFormat Exception --> For invalid number passing in the  argument
+	e.g.	int a  = Integer.parseInt(args[0]);
+		java run 10A
+
+ArrayIndexOutOfBound Exception --> For not giving data in the array
+	e.g	System.out.println("Hello " + args[0] + args[1] );
+		java run Bhuwan 
+
+StringIndexOutOfBonds Exception --> Return error if the string index is not there
+	e.g	String name = new String("Bhuwan");
+		char ch = name.charAt(7);
+
+InputMismatch Exception --> Throw error if we put wrong input from Scanner Class
+	e.g	age = in.nextInt();
+		while giving input :  12.8
+
+
