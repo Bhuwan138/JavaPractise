@@ -8,4 +8,8 @@ ArrayIndexOutOfBound Exception --> For not giving data in the array
 	e.g	System.out.println("Hello " + args[0] + args[1] );
 		java run Bhuwan 
 
+StringIndexOutOfBonds Exception --> Return error if the string index is not there
+	e.g	String name = new String("Bhuwan");
+		char ch = name.charAt(7);
+
 
