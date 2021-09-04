@@ -12,4 +12,8 @@ StringIndexOutOfBonds Exception --> Return error if the string index is not ther
 	e.g	String name = new String("Bhuwan");
 		char ch = name.charAt(7);
 
+InputMismatch Exception --> Throw error if we put wrong input from Scanner Class
+	e.g	age = in.nextInt();
+		while giving input :  12.8
+
 
