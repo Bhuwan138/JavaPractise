@@ -1,4 +1,4 @@
-package com.Bhuwan;
+package com.Bhuwan.controlStatement;
 
 import java.util.Scanner;
 
