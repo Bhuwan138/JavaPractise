@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<college>
+    <bca>
+        <third>
+            <student id="1">
+                <name>Bhuwan</name>
+                <address>Bangaun</address>
+            </student>
+            
+            <student id="2">
+                <name> Tek Raj</name>
+                <address>Lalpur</address>
+            </student>
+            
+            <student>
+                <name>Sarita</name>
+                <address>Chadani</address>
+            </student>
+        </third>
+        
+        <fifth>
+            <student>
+                <name>Puran</name>
+                <address>bazar</address>
+            </student>
+            <student>
+                <name>Gambir</name>
+                <address>Janaki Tole</address>
+            </student>
+            
+        </fifth>
+        
+    </bca>
+    
+    
+    <bbs>
+        <third>
+            <name>Ram</name>
+            <address>Bankhet</address>
+        </third>
+    </bbs>
+
+</college>
