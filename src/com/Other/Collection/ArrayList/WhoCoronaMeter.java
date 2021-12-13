@@ -13,6 +13,11 @@ public class WhoCoronaMeter {
         country.add("Russia");
         country.add("Columbia");
         System.out.println("Enter the country name which you want to search : ");
+        String s = in.next();
+        if (country.contains(s) == true) {
+            System.out.println(s + " country is found in " + (country.indexOf(s) +1) + "th index.");
+        }
+        else System.out.println("Country Not found");
 
     }
 
