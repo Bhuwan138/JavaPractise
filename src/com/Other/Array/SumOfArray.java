@@ -1,3 +1,5 @@
+package com.Other.Array;
+
 import java.util.Scanner;
 
 class AddArray{
