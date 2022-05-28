@@ -35,6 +35,8 @@ public class Check_ColorChanger extends javax.swing.JFrame {
         chkRed = new javax.swing.JCheckBox();
         chkGreen = new javax.swing.JCheckBox();
         chkBlue = new javax.swing.JCheckBox();
+        lblColorCode = new javax.swing.JLabel();
+        txtColorCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,28 +69,46 @@ public class Check_ColorChanger extends javax.swing.JFrame {
             }
         });
 
+        lblColorCode.setBackground(new java.awt.Color(51, 51, 51));
+        lblColorCode.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lblColorCode.setForeground(new java.awt.Color(255, 255, 255));
+        lblColorCode.setText("Color Code :");
+        lblColorCode.setOpaque(true);
+
+        txtColorCode.setEditable(false);
+
         javax.swing.GroupLayout myPanelLayout = new javax.swing.GroupLayout(myPanel);
         myPanel.setLayout(myPanelLayout);
         myPanelLayout.setHorizontalGroup(
             myPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(myPanelLayout.createSequentialGroup()
                 .addGap(104, 104, 104)
-                .addComponent(chkRed, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(chkGreen, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(chkBlue, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGroup(myPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(myPanelLayout.createSequentialGroup()
+                        .addComponent(lblColorCode, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtColorCode, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(myPanelLayout.createSequentialGroup()
+                        .addComponent(chkRed, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(chkGreen, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(chkBlue, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         myPanelLayout.setVerticalGroup(
             myPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(myPanelLayout.createSequentialGroup()
-                .addGap(146, 146, 146)
+                .addGap(93, 93, 93)
+                .addGroup(myPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblColorCode, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtColorCode, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(myPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(chkRed, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkGreen)
                     .addComponent(chkBlue))
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         myPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {chkBlue, chkGreen, chkRed});
@@ -120,23 +140,12 @@ public class Check_ColorChanger extends javax.swing.JFrame {
     }//GEN-LAST:event_chkBlueItemStateChanged
 
     private void selectColor(){
-        if(chkRed.isSelected())
-            myPanel.setBackground(Color.RED);
-        else if(chkGreen.isSelected())
-            myPanel.setBackground(Color.GREEN);
-        else if(chkBlue.isSelected())
-            myPanel.setBackground(Color.BLUE);
-        else if(chkRed.isSelected() && chkGreen.isSelected())
-            myPanel.setBackground(Color.YELLOW);
-        else if(chkRed.isSelected() && chkBlue.isSelected())
-            myPanel.setBackground(new Color(255,0,255));
-        else if(chkGreen.isSelected() && chkBlue.isSelected())
-            myPanel.setBackground(new Color(0,255,255));
-        else if(chkRed.isSelected() && chkGreen.isSelected() && chkBlue.isSelected())
-            myPanel.setBackground(Color.WHITE);
-        else
-            myPanel.setBackground(oldColor);
-                
+        int red = (chkRed.isSelected())?255:0;
+        int green = (chkGreen.isSelected())?255:0;
+        int blue = (chkBlue.isSelected())?255:0;
+        
+        txtColorCode.setText("( " + red + " , " + green + " , " + blue + " )");
+        myPanel.setBackground(new Color(red,green,blue));
     }
     /**
      * @param args the command line arguments
@@ -177,6 +186,10 @@ public class Check_ColorChanger extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkBlue;
     private javax.swing.JCheckBox chkGreen;
     private javax.swing.JCheckBox chkRed;
+    private javax.swing.JLabel lblColorCode;
     private javax.swing.JPanel myPanel;
+    private javax.swing.JTextField txtColorCode;
     // End of variables declaration//GEN-END:variables
+
+   
 }
