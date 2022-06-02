@@ -165,10 +165,8 @@
                                           </Group>
                                           <Component id="jLabel3" min="-2" pref="116" max="-2" attributes="0"/>
                                           <Component id="jLabel5" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtUserId" alignment="0" pref="273" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="txtPassword" alignment="0" min="-2" pref="273" max="-2" attributes="0"/>
+                                          <Component id="txtUserId" alignment="0" min="-2" pref="280" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -208,7 +206,8 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" pref="19" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtUserId" min="-2" pref="49" max="-2" attributes="0"/>
+                              <Component id="txtUserId" min="-2" pref="43" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel4" min="-2" pref="62" max="-2" attributes="0"/>
                       </Group>
@@ -247,30 +246,6 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblCloseMouseClicked"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="lblCloseKeyPressed"/>
               </Events>
-            </Component>
-            <Component class="rojerusan.RSMetroTextPlaceHolder" name="txtUserId">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="66" red="66" type="rgb"/>
-                </Property>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                    <MatteColorBorder bottom="2" left="0" right="0" top="0">
-                      <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
-                    </MatteColorBorder>
-                  </Border>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SimSun-ExtB" size="18" style="0"/>
-                </Property>
-                <Property name="phColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="placeholder" type="java.lang.String" value="Enter UserId"/>
-              </Properties>
             </Component>
             <Component class="rojerusan.RSPasswordTextPlaceHolder" name="txtPassword">
               <Properties>
@@ -404,6 +379,30 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/BMS/Images/icons8_secure_50px.png"/>
                 </Property>
+              </Properties>
+            </Component>
+            <Component class="app.bolivia.swing.JCTextField" name="txtUserId">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="66" red="66" type="rgb"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                    <MatteColorBorder bottom="2" left="0" right="0" top="0">
+                      <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+                    </MatteColorBorder>
+                  </Border>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SimSun-ExtB" size="18" style="0"/>
+                </Property>
+                <Property name="phColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                </Property>
+                <Property name="placeholder" type="java.lang.String" value="Enter Username"/>
               </Properties>
             </Component>
           </SubComponents>

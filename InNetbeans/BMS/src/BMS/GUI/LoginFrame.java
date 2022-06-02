@@ -52,7 +52,6 @@ public class LoginFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lblClose = new javax.swing.JLabel();
-        txtUserId = new rojerusan.RSMetroTextPlaceHolder();
         txtPassword = new rojerusan.RSPasswordTextPlaceHolder();
         jcUserType = new javax.swing.JComboBox<>();
         btnLogin = new rojerusan.RSMaterialButtonCircle();
@@ -64,6 +63,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        txtUserId = new app.bolivia.swing.JCTextField();
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
@@ -101,13 +101,6 @@ public class LoginFrame extends javax.swing.JFrame {
                 lblCloseKeyPressed(evt);
             }
         });
-
-        txtUserId.setBackground(new java.awt.Color(102, 102, 255));
-        txtUserId.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        txtUserId.setForeground(new java.awt.Color(255, 255, 255));
-        txtUserId.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
-        txtUserId.setPhColor(new java.awt.Color(255, 255, 255));
-        txtUserId.setPlaceholder("Enter UserId");
 
         txtPassword.setBackground(new java.awt.Color(102, 102, 255));
         txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
@@ -157,6 +150,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_secure_50px.png"))); // NOI18N
 
+        txtUserId.setBackground(new java.awt.Color(102, 102, 255));
+        txtUserId.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txtUserId.setForeground(new java.awt.Color(255, 255, 255));
+        txtUserId.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
+        txtUserId.setPhColor(new java.awt.Color(204, 204, 204));
+        txtUserId.setPlaceholder("Enter Username");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,9 +188,8 @@ public class LoginFrame extends javax.swing.JFrame {
                                         .addComponent(lblClose))
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtUserId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))))
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -218,7 +217,8 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -375,7 +375,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private rojerusan.RSFotoCircle rSFotoCircle1;
     private rojerusan.RSMetroTextPlaceHolder rSMetroTextPlaceHolder1;
     private rojerusan.RSPasswordTextPlaceHolder txtPassword;
-    private rojerusan.RSMetroTextPlaceHolder txtUserId;
+    private app.bolivia.swing.JCTextField txtUserId;
     // End of variables declaration//GEN-END:variables
         
     private boolean validateUser() {

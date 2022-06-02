@@ -99,13 +99,13 @@ public class EmployeesDAO {
     
     public static boolean updateEmployee(EmployeesPojo emp)throws SQLException{
         Connection conn = DBConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement("update employees set empname = ?, job = ?, salary = ? where empid = ?");
-        ps.setString(4, emp.getEmployeeId());
+        PreparedStatement ps = conn.prepareStatement("update employees set empname = ?, job = ?, salary = ?, email = ?, contact = ? where empid = ?");
         ps.setString(1, emp.getEmployeeName());
         ps.setString(2, emp.getJob());
         ps.setDouble(3, emp.getSalary());
-        ps.setString(5, emp.getEmail());
-        ps.setString(6, emp.getContact());
+        ps.setString(4, emp.getEmail());
+        ps.setString(5, emp.getContact());
+        ps.setString(6, emp.getEmployeeId());
         int result = ps.executeUpdate();
         if(result == 0)
             return false;
