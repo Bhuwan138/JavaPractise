@@ -5,6 +5,8 @@
  */
 package BMS.GUI;
 
+import java.awt.Color;
+
 /**
  *
  * @author Bhuwan Pandey
@@ -18,7 +20,10 @@ public class EmployeeFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
+    
+    public void addColor(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
