@@ -5,7 +5,19 @@
  */
 package BMS.GUI;
 
+import BMS.DAO.PassengerDAO;
+import BMS.DAO.RouteDAO;
+import BMS.DAO.TicketDAO;
+import BMS.POJO.PassengerPojo;
+import BMS.POJO.RoutePojo;
+import BMS.POJO.TicketPojo;
+import BMS.POJO.UserProfile;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,14 +28,25 @@ public class EmployeeFrame extends javax.swing.JFrame {
     /**
      * Creates new form EmployeeFrame
      */
+    public static final Color MOUSE_ENTER_COLOR = new Color(0,0,0);
+    public static final Color MOUSE_EXIT_COLOR = new Color(51,51,51);
+    String userName = UserProfile.getUserName();
+    
     public EmployeeFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        String userDir = System.getProperty("user.dir");
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Image img = tk.getImage(userDir + "\\icon\\employee.png");
+        super.setIconImage(img);
+        totalNoOfRoutes();
+        totalNoOfPassengers();
+        totalNoOfTickets();
+        name.setText("Welcome, "+ userName);
     }
     
-    public void addColor(){
-        
-    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,31 +60,36 @@ public class EmployeeFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        lblClose = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        passenger = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        dashboard = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        ticket = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
+        route = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        logout = new javax.swing.JPanel();
+        logouts = new javax.swing.JLabel();
+        setting = new javax.swing.JPanel();
+        settings = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        noOfBusesTickets = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        noOfRoutes = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        noOfPassengers = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setTitle("Receptionist Dashboard");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 255));
@@ -92,24 +120,11 @@ public class EmployeeFrame extends javax.swing.JFrame {
         jLabel2.setText("Bus Management System");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 289, 27));
 
-        jLabel3.setFont(new java.awt.Font("SimSun", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_user_50px_1.png"))); // NOI18N
-        jLabel3.setText("Welcome, Employee");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 290, -1));
-
-        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_close_window_48px.png"))); // NOI18N
-        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCloseMouseClicked(evt);
-            }
-        });
-        lblClose.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                lblCloseKeyPressed(evt);
-            }
-        });
-        jPanel3.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1024, 13, -1, -1));
+        name.setFont(new java.awt.Font("SimSun", 0, 18)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
+        name.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_user_50px_1.png"))); // NOI18N
+        name.setText("Welcome, Employee");
+        jPanel3.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 290, -1));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 62));
 
@@ -117,31 +132,42 @@ public class EmployeeFrame extends javax.swing.JFrame {
         jPanel4.setPreferredSize(new java.awt.Dimension(245, 680));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        passenger.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_management_30px.png"))); // NOI18N
-        jLabel4.setText("  View Pasenger Details");
+        jLabel4.setText("  Pasenger Details");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel4MouseExited(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout passengerLayout = new javax.swing.GroupLayout(passenger);
+        passenger.setLayout(passengerLayout);
+        passengerLayout.setHorizontalGroup(
+            passengerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, passengerLayout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        passengerLayout.setVerticalGroup(
+            passengerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(passengerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 310, 60));
+        jPanel4.add(passenger, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 310, 60));
 
         jPanel5.setBackground(new java.awt.Color(218, 62, 82));
 
@@ -174,197 +200,308 @@ public class EmployeeFrame extends javax.swing.JFrame {
         jLabel6.setText("Features");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
-        jPanel6.setBackground(new java.awt.Color(51, 51, 51));
+        dashboard.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_Double_Decker_Bus_30px.png"))); // NOI18N
         jLabel7.setText("  BMS Dashboard");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel7MouseExited(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout dashboardLayout = new javax.swing.GroupLayout(dashboard);
+        dashboard.setLayout(dashboardLayout);
+        dashboardLayout.setHorizontalGroup(
+            dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashboardLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(61, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        dashboardLayout.setVerticalGroup(
+            dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dashboardLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 310, 60));
+        jPanel4.add(dashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 310, 60));
 
-        jPanel7.setBackground(new java.awt.Color(51, 51, 51));
+        ticket.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_badge_30px.png"))); // NOI18N
         jLabel8.setText("  Book Ticket");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel8MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel8MouseExited(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+        javax.swing.GroupLayout ticketLayout = new javax.swing.GroupLayout(ticket);
+        ticket.setLayout(ticketLayout);
+        ticketLayout.setHorizontalGroup(
+            ticketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ticketLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(63, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        ticketLayout.setVerticalGroup(
+            ticketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ticketLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel4.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 260, 60));
+        jPanel4.add(ticket, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 310, 60));
 
-        jPanel8.setBackground(new java.awt.Color(51, 51, 51));
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_cancel_30px.png"))); // NOI18N
-        jLabel9.setText("  Cancel Ticket");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel4.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 260, 60));
-
-        jPanel9.setBackground(new java.awt.Color(51, 51, 51));
+        route.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_route_30px.png"))); // NOI18N
         jLabel10.setText("  View Routes");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel10MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel10MouseExited(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        javax.swing.GroupLayout routeLayout = new javax.swing.GroupLayout(route);
+        route.setLayout(routeLayout);
+        routeLayout.setHorizontalGroup(
+            routeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(routeLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(62, Short.MAX_VALUE))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        routeLayout.setVerticalGroup(
+            routeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(routeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel4.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 310, 60));
+        jPanel4.add(route, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 310, 60));
 
-        jPanel10.setBackground(new java.awt.Color(51, 51, 51));
+        logout.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_add_30px.png"))); // NOI18N
-        jLabel11.setText("  Add/Update Bus Sheet");
+        logouts.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        logouts.setForeground(new java.awt.Color(255, 255, 255));
+        logouts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_Exit_26px_2.png"))); // NOI18N
+        logouts.setText("  Logout");
+        logouts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutsMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logoutsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logoutsMouseExited(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel4.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 310, 60));
-
-        jPanel11.setBackground(new java.awt.Color(51, 51, 51));
-
-        jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_Exit_26px_2.png"))); // NOI18N
-        jLabel12.setText("  Logout");
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+        javax.swing.GroupLayout logoutLayout = new javax.swing.GroupLayout(logout);
+        logout.setLayout(logoutLayout);
+        logoutLayout.setHorizontalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoutLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logouts, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+        logoutLayout.setVerticalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoutLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addComponent(logouts, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel4.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 310, 60));
+        jPanel4.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 310, 60));
 
-        jPanel12.setBackground(new java.awt.Color(51, 51, 51));
+        setting.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabel13.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_settings_30px.png"))); // NOI18N
-        jLabel13.setText("  Setting");
+        settings.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        settings.setForeground(new java.awt.Color(255, 255, 255));
+        settings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_settings_30px.png"))); // NOI18N
+        settings.setText("  Setting");
+        settings.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                settingsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                settingsMouseExited(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
+        javax.swing.GroupLayout settingLayout = new javax.swing.GroupLayout(setting);
+        setting.setLayout(settingLayout);
+        settingLayout.setHorizontalGroup(
+            settingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(settings, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(61, Short.MAX_VALUE))
         );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        settingLayout.setVerticalGroup(
+            settingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(settings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 570, 310, 60));
+        jPanel4.add(setting, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 570, 310, 60));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 56, 310, 730));
+
+        jPanel2.setBackground(new java.awt.Color(255, 252, 249));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel16.setFont(new java.awt.Font("SimSun", 1, 20)); // NOI18N
+        jLabel16.setText("No of Tickets");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 200, 40));
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(218, 62, 82)));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        noOfBusesTickets.setFont(new java.awt.Font("SF Slapstick Comic", 0, 50)); // NOI18N
+        noOfBusesTickets.setForeground(new java.awt.Color(102, 102, 102));
+        noOfBusesTickets.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_bus_50px_2.png"))); // NOI18N
+        noOfBusesTickets.setText("10");
+        jPanel7.add(noOfBusesTickets, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 100, 60));
+
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 190, 130));
+
+        jLabel18.setFont(new java.awt.Font("SimSun", 1, 20)); // NOI18N
+        jLabel18.setText("No of Routes");
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 200, 40));
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(218, 62, 82)));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        noOfRoutes.setFont(new java.awt.Font("SF Slapstick Comic", 0, 50)); // NOI18N
+        noOfRoutes.setForeground(new java.awt.Color(102, 102, 102));
+        noOfRoutes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_near_me_50px.png"))); // NOI18N
+        noOfRoutes.setText("10");
+        jPanel8.add(noOfRoutes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 100, 60));
+
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 190, 130));
+
+        jLabel20.setFont(new java.awt.Font("SimSun", 1, 20)); // NOI18N
+        jLabel20.setText("No of Passengers");
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 200, 40));
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(218, 62, 82)));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        noOfPassengers.setFont(new java.awt.Font("SF Slapstick Comic", 0, 50)); // NOI18N
+        noOfPassengers.setForeground(new java.awt.Color(102, 102, 102));
+        noOfPassengers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_passenger_50px.png"))); // NOI18N
+        noOfPassengers.setText("10");
+        jPanel9.add(noOfPassengers, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 100, 60));
+
+        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 190, 130));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 770, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_lblCloseMouseClicked
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        PassengerFrame pf = new PassengerFrame();
+        pf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void lblCloseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblCloseKeyPressed
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        TicketFrame tf = new TicketFrame();
+        tf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel8MouseClicked
 
-    }//GEN-LAST:event_lblCloseKeyPressed
+    private void logoutsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutsMouseClicked
+        LoginFrame lf = new LoginFrame();
+        lf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logoutsMouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        ViewRouteFrame vrf = new ViewRouteFrame();
+        vrf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void settingsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsMouseEntered
+        setting.setBackground(MOUSE_ENTER_COLOR);
+    }//GEN-LAST:event_settingsMouseEntered
+
+    private void settingsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsMouseExited
+        setting.setBackground(MOUSE_EXIT_COLOR);
+    }//GEN-LAST:event_settingsMouseExited
+
+    private void logoutsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutsMouseEntered
+        logout.setBackground(MOUSE_ENTER_COLOR);
+    }//GEN-LAST:event_logoutsMouseEntered
+
+    private void logoutsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutsMouseExited
+        logout.setBackground(MOUSE_EXIT_COLOR);
+    }//GEN-LAST:event_logoutsMouseExited
+
+    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+        passenger.setBackground(MOUSE_ENTER_COLOR);
+    }//GEN-LAST:event_jLabel4MouseEntered
+
+    private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
+        passenger.setBackground(MOUSE_EXIT_COLOR);
+    }//GEN-LAST:event_jLabel4MouseExited
+
+    private void jLabel8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseEntered
+        ticket.setBackground(MOUSE_ENTER_COLOR);
+    }//GEN-LAST:event_jLabel8MouseEntered
+
+    private void jLabel8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseExited
+        ticket.setBackground(MOUSE_EXIT_COLOR);
+    }//GEN-LAST:event_jLabel8MouseExited
+
+    private void jLabel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseEntered
+        route.setBackground(MOUSE_ENTER_COLOR);
+    }//GEN-LAST:event_jLabel10MouseEntered
+
+    private void jLabel10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseExited
+        route.setBackground(MOUSE_EXIT_COLOR);
+    }//GEN-LAST:event_jLabel10MouseExited
+
+    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
+        dashboard.setBackground(MOUSE_ENTER_COLOR);
+    }//GEN-LAST:event_jLabel7MouseEntered
+
+    private void jLabel7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseExited
+        dashboard.setBackground(MOUSE_EXIT_COLOR);
+    }//GEN-LAST:event_jLabel7MouseExited
 
     /**
      * @param args the command line arguments
@@ -402,31 +539,72 @@ public class EmployeeFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel dashboard;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel lblClose;
+    private javax.swing.JPanel logout;
+    private javax.swing.JLabel logouts;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel noOfBusesTickets;
+    private javax.swing.JLabel noOfPassengers;
+    private javax.swing.JLabel noOfRoutes;
+    private javax.swing.JPanel passenger;
+    private javax.swing.JPanel route;
+    private javax.swing.JPanel setting;
+    private javax.swing.JLabel settings;
+    private javax.swing.JPanel ticket;
     // End of variables declaration//GEN-END:variables
+    
+    private void totalNoOfRoutes() {
+        try{
+            List<RoutePojo> id = RouteDAO.getAllRoutes();
+            int total = id.size();
+            noOfRoutes.setText(String.valueOf(total));
+        }catch(SQLException se){
+            JOptionPane.showMessageDialog(null, "Error in Database","Incomplete",JOptionPane.ERROR_MESSAGE);
+            se.printStackTrace();
+            return;
+        }
+    }
+    
+    private void totalNoOfPassengers() {
+        try{
+            List<PassengerPojo> id = PassengerDAO.getAllPassenger();    
+            int total = id.size();
+            noOfPassengers.setText(String.valueOf(total));
+        }catch(SQLException se){
+            JOptionPane.showMessageDialog(null, "Error in Database","Incomplete",JOptionPane.ERROR_MESSAGE);
+            se.printStackTrace();
+            return;
+        }
+    }
+
+    private void totalNoOfTickets(){
+        try{
+            List<TicketPojo> id = TicketDAO.getAllTickets();
+            int total = id.size();
+            noOfBusesTickets.setText(String.valueOf(total));
+        }catch(SQLException se){
+            JOptionPane.showMessageDialog(null, "Error in Database","Incomplete",JOptionPane.ERROR_MESSAGE);
+            se.printStackTrace();
+            return;
+        }
+    }
 }

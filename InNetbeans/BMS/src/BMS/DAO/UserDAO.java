@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -42,6 +43,23 @@ public class UserDAO {
         ps.setString(1, empId);
         ResultSet rs = ps.executeQuery();
         return rs.next();
+    }
+    
+    public static String getRememberedId() throws SQLException{
+        Connection conn = DBConnection.getConnection();
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery("select userid from remember");
+        if(rs.next())
+            return rs.getString(1);
+        else
+            return null;
+    }
+    
+    public static void setRememberedId(String id) throws SQLException{
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement("update remember set userid = ? where id = '1'");
+        ps.setString(1, id);
+        ps.executeUpdate();
     }
    
 }

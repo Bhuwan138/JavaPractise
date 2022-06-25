@@ -10,6 +10,8 @@ import BMS.DAO.ReceptionistDAO;
 import BMS.POJO.EmployeesPojo;
 import BMS.POJO.ReceptionistPojo;
 import BMS.POJO.UserPojo;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +36,10 @@ public class WorkingEmployeeFrame extends javax.swing.JFrame {
     public WorkingEmployeeFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        String userDir = System.getProperty("user.dir");
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Image img = tk.getImage(userDir + "\\icon\\manageemployee.png");
+        super.setIconImage(img);
         loadReceptionistDetails();
         loadEmpId();
     }
@@ -48,7 +54,6 @@ public class WorkingEmployeeFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        lblClose = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbWorkingEmployee = new rojerusan.RSTableMetro();
         jLabel1 = new javax.swing.JLabel();
@@ -76,24 +81,11 @@ public class WorkingEmployeeFrame extends javax.swing.JFrame {
         cbEmpId = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1490, 760));
+        setTitle("Receptionist");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 252, 249));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_close_window_48px.png"))); // NOI18N
-        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCloseMouseClicked(evt);
-            }
-        });
-        lblClose.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                lblCloseKeyPressed(evt);
-            }
-        });
-        jPanel2.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, -1, -1));
 
         tbWorkingEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,7 +134,7 @@ public class WorkingEmployeeFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_management_30px_3.png"))); // NOI18N
-        jLabel1.setText("  Manage Working Employees");
+        jLabel1.setText("  Manage Receptionist");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 410, 44));
 
         jPanel4.setBackground(new java.awt.Color(255, 102, 102));
@@ -292,14 +284,6 @@ public class WorkingEmployeeFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_lblCloseMouseClicked
-
-    private void lblCloseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblCloseKeyPressed
-
-    }//GEN-LAST:event_lblCloseKeyPressed
 
     private void lblBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseClicked
         ManagerFrame mf = new ManagerFrame();
@@ -483,7 +467,6 @@ public class WorkingEmployeeFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBack;
-    private javax.swing.JLabel lblClose;
     private rojerusan.RSTableMetro tbWorkingEmployee;
     private app.bolivia.swing.JCTextField txtName;
     private rojerusan.RSPasswordTextPlaceHolder txtPassword;

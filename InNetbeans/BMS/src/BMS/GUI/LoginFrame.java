@@ -27,6 +27,7 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        getId();
     }
 
     /**
@@ -64,6 +65,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtUserId = new app.bolivia.swing.JCTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
@@ -86,7 +88,10 @@ public class LoginFrame extends javax.swing.JFrame {
         rSMetroTextPlaceHolder1.setText("rSMetroTextPlaceHolder1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
@@ -112,7 +117,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jcUserType.setBackground(new java.awt.Color(102, 102, 255));
         jcUserType.setFont(new java.awt.Font("SimSun-ExtB", 0, 24)); // NOI18N
         jcUserType.setForeground(new java.awt.Color(255, 255, 255));
-        jcUserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager", "Employee" }));
+        jcUserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager", "Receptionist" }));
 
         btnLogin.setBackground(new java.awt.Color(255, 102, 102));
         btnLogin.setText("Login");
@@ -125,8 +130,12 @@ public class LoginFrame extends javax.swing.JFrame {
         jcCheck.setBackground(new java.awt.Color(102, 102, 255));
         jcCheck.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
         jcCheck.setForeground(new java.awt.Color(255, 255, 255));
-        jcCheck.setSelected(true);
         jcCheck.setText("Remember UserId");
+        jcCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcCheckActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("SimSun-ExtB", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -244,7 +253,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 399, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -252,18 +261,10 @@ public class LoginFrame extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(764, 0, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/login-img.png"))); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 700));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -314,6 +315,15 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void jcCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcCheckActionPerformed
+        try{
+            UserDAO.setRememberedId(txtUserId.getText());
+        }catch(SQLException se){
+             JOptionPane.showMessageDialog(null, "Unable to update userid","error",JOptionPane.ERROR_MESSAGE);
+             se.printStackTrace();
+        }
+    }//GEN-LAST:event_jcCheckActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -358,6 +368,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -397,6 +408,15 @@ public class LoginFrame extends javax.swing.JFrame {
         else
             return null;
         
+    }
+
+    private void getId() {
+        try{
+            txtUserId.setText(UserDAO.getRememberedId());
+        }catch(SQLException se){
+             JOptionPane.showMessageDialog(null, "Unable to get userid","error",JOptionPane.ERROR_MESSAGE);
+             se.printStackTrace();
+        }
     }
 
 }

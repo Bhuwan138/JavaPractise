@@ -5,8 +5,9 @@
  */
 package BMS.GUI;
 
-import BMS.DAO.EmployeesDAO;
-import BMS.POJO.EmployeesPojo;
+import BMS.DAO.PassengerDAO;
+import BMS.POJO.PassengerPojo;
+import BMS.POJO.UserProfile;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.SQLException;
@@ -18,21 +19,22 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Bhuwan Pandey
  */
-public class ManageEmployeeFrame extends javax.swing.JFrame {
+public class PassengerFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ManageEmployeeFrame
+     * Creates new form PassengerFrame
      */
     DefaultTableModel tb;
-    public ManageEmployeeFrame() {
+    String userId = UserProfile.getUserId();
+    public PassengerFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
         String userDir = System.getProperty("user.dir");
         Toolkit tk = Toolkit.getDefaultToolkit();
-        Image img = tk.getImage(userDir + "\\icon\\manageemployee.png");
+        Image img = tk.getImage(userDir + "\\icon\\passenger.png");
         super.setIconImage(img);
-        loadEmployees();
-        loadEmpId();
+        loadPassengerId();
+        loadPassengers(userId);
     }
 
     /**
@@ -44,6 +46,7 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLocaleChooser1 = new com.toedter.components.JLocaleChooser();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         lblBack = new javax.swing.JLabel();
@@ -53,29 +56,23 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtName = new app.bolivia.swing.JCTextField();
-        txtJob = new app.bolivia.swing.JCTextField();
-        jLabel7 = new javax.swing.JLabel();
+        txtContact = new app.bolivia.swing.JCTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtSalary = new app.bolivia.swing.JCTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        txtEmail = new app.bolivia.swing.JCTextField();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        txtContact = new app.bolivia.swing.JCTextField();
         btnDelete = new rojerusan.RSMaterialButtonCircle();
         btnAdd = new rojerusan.RSMaterialButtonCircle();
         btnUpdate = new rojerusan.RSMaterialButtonCircle();
+        jcGender = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbEmployee = new rojerusan.RSTableMetro();
+        rbPassenger = new rojerusan.RSTableMetro();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Manage Employee");
+        setTitle("Passenger");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
@@ -102,7 +99,7 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Employee ID");
+        jLabel3.setText("Passenger ID");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, 20));
 
         txtId.setBackground(new java.awt.Color(102, 102, 255));
@@ -110,7 +107,7 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
         txtId.setForeground(new java.awt.Color(255, 255, 255));
         txtId.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
         txtId.setPhColor(new java.awt.Color(204, 204, 204));
-        txtId.setPlaceholder("Enter Employee ID");
+        txtId.setPlaceholder("Enter Passenger ID");
         jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 280, 50));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_user_50px_1.png"))); // NOI18N
@@ -118,7 +115,7 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Employee Name");
+        jLabel6.setText("Passenger Name");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, -1, 20));
 
         txtName.setBackground(new java.awt.Color(102, 102, 255));
@@ -126,72 +123,32 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
         txtName.setForeground(new java.awt.Color(255, 255, 255));
         txtName.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
         txtName.setPhColor(new java.awt.Color(204, 204, 204));
-        txtName.setPlaceholder("Enter Username");
+        txtName.setPlaceholder("Enter Passenger Name");
         jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 280, 50));
-
-        txtJob.setBackground(new java.awt.Color(102, 102, 255));
-        txtJob.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        txtJob.setForeground(new java.awt.Color(255, 255, 255));
-        txtJob.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
-        txtJob.setPhColor(new java.awt.Color(204, 204, 204));
-        txtJob.setPlaceholder("Enter Job");
-        jPanel1.add(txtJob, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 280, 40));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_new_job_50px_1.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, 50));
-
-        jLabel8.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Job");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, -1, 20));
-
-        txtSalary.setBackground(new java.awt.Color(102, 102, 255));
-        txtSalary.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        txtSalary.setForeground(new java.awt.Color(255, 255, 255));
-        txtSalary.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
-        txtSalary.setPhColor(new java.awt.Color(204, 204, 204));
-        txtSalary.setPlaceholder("Enter Salary");
-        jPanel1.add(txtSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 280, 40));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_salary_female_50px.png"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, -1, 50));
-
-        jLabel10.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Salary");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 90, 30));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_email_document_50px_2.png"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, 50));
-
-        txtEmail.setBackground(new java.awt.Color(102, 102, 255));
-        txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        txtEmail.setForeground(new java.awt.Color(255, 255, 255));
-        txtEmail.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
-        txtEmail.setPhColor(new java.awt.Color(204, 204, 204));
-        txtEmail.setPlaceholder("Enter Email ID");
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 480, 280, 50));
-
-        jLabel12.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("EMAIL");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, -1, 20));
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_phone_contact_50px.png"))); // NOI18N
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, -1, 50));
-
-        jLabel14.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Contact");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 540, -1, 20));
 
         txtContact.setBackground(new java.awt.Color(102, 102, 255));
         txtContact.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtContact.setForeground(new java.awt.Color(255, 255, 255));
         txtContact.setFont(new java.awt.Font("SimSun-ExtB", 0, 18)); // NOI18N
         txtContact.setPhColor(new java.awt.Color(204, 204, 204));
-        txtContact.setPlaceholder("Enter Contact No.");
-        jPanel1.add(txtContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 280, 50));
+        txtContact.setPlaceholder("Enter Contact Number");
+        jPanel1.add(txtContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 280, 40));
+
+        jLabel8.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Contact No");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, -1, 20));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_gender_50px.png"))); // NOI18N
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, -1, 50));
+
+        jLabel10.setFont(new java.awt.Font("SimSun-ExtB", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Gender");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 90, 30));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_phone_contact_50px.png"))); // NOI18N
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, -1, 50));
 
         btnDelete.setBackground(new java.awt.Color(255, 102, 102));
         btnDelete.setText("DELETE");
@@ -200,7 +157,7 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 630, 150, 50));
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, 150, 50));
 
         btnAdd.setBackground(new java.awt.Color(255, 102, 102));
         btnAdd.setText("ADD");
@@ -209,7 +166,7 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, 150, 50));
+        jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 150, 50));
 
         btnUpdate.setBackground(new java.awt.Color(255, 102, 102));
         btnUpdate.setText("UPDATE");
@@ -218,62 +175,59 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
                 btnUpdateActionPerformed(evt);
             }
         });
-        jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 630, 150, 50));
+        jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 510, 150, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 760));
+        jcGender.setBackground(new java.awt.Color(102, 102, 255));
+        jcGender.setForeground(new java.awt.Color(102, 102, 255));
+        jcGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F", "-", " " }));
+        jPanel1.add(jcGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 270, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 630));
 
         jPanel2.setBackground(new java.awt.Color(255, 252, 249));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tbEmployee.setModel(new javax.swing.table.DefaultTableModel(
+        rbPassenger.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Name", "Job", "Salary", "Email", "Contact"
+                "ID", "Name", "Contact", "Gender"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbEmployee.setColorBackgoundHead(new java.awt.Color(102, 102, 255));
-        tbEmployee.setColorBordeFilas(new java.awt.Color(102, 102, 255));
-        tbEmployee.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
-        tbEmployee.setColorSelBackgound(new java.awt.Color(255, 102, 102));
-        tbEmployee.setFont(new java.awt.Font("Yu Gothic Light", 0, 25)); // NOI18N
-        tbEmployee.setFuenteFilas(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        tbEmployee.setFuenteFilasSelect(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
-        tbEmployee.setFuenteHead(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
-        tbEmployee.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tbEmployee.setRowHeight(40);
-        tbEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+        rbPassenger.setColorBackgoundHead(new java.awt.Color(102, 102, 255));
+        rbPassenger.setColorBordeFilas(new java.awt.Color(102, 102, 255));
+        rbPassenger.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
+        rbPassenger.setColorSelBackgound(new java.awt.Color(255, 102, 102));
+        rbPassenger.setFont(new java.awt.Font("Yu Gothic Light", 0, 25)); // NOI18N
+        rbPassenger.setFuenteFilas(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        rbPassenger.setFuenteFilasSelect(new java.awt.Font("Yu Gothic UI", 1, 20)); // NOI18N
+        rbPassenger.setFuenteHead(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        rbPassenger.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        rbPassenger.setRowHeight(40);
+        rbPassenger.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbEmployeeMouseClicked(evt);
+                rbPassengerMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbEmployee);
-        if (tbEmployee.getColumnModel().getColumnCount() > 0) {
-            tbEmployee.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tbEmployee.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tbEmployee.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tbEmployee.getColumnModel().getColumn(3).setPreferredWidth(200);
-            tbEmployee.getColumnModel().getColumn(4).setPreferredWidth(400);
-            tbEmployee.getColumnModel().getColumn(5).setPreferredWidth(150);
-        }
+        jScrollPane1.setViewportView(rbPassenger);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 118, 970, 610));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 118, 970, 480));
 
         jLabel1.setBackground(new java.awt.Color(255, 102, 102));
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BMS/Images/icons8_management_30px_3.png"))); // NOI18N
-        jLabel1.setText("  Manage Employees");
+        jLabel1.setText("  Manage Passenger");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 303, 44));
 
         jPanel4.setBackground(new java.awt.Color(255, 102, 102));
@@ -292,35 +246,37 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, -1, 5));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 1010, 760));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 1010, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseClicked
-        ManagerFrame mf = new ManagerFrame();
-        mf.setVisible(true);
+        EmployeeFrame ef = new EmployeeFrame();
+        ef.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_lblBackMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String id = txtId.getText().trim();
         if(id.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Please Select employee First", "Incomplete", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please Select Passenger First", "Incomplete", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         try{
-          boolean result = EmployeesDAO.deleteEmployee(id);
-          if(result){
-            JOptionPane.showMessageDialog(null, "Record Deleted Sucessfully","Sucess",JOptionPane.INFORMATION_MESSAGE);
-            clearText();
-            loadEmpId();
-            tb.setRowCount(0);
-            loadEmployees();
-            return;
-          }else
-            JOptionPane.showMessageDialog(null, "Sorry Record is not deleted","Incomplete",JOptionPane.ERROR_MESSAGE);
+            boolean result = PassengerDAO.deletePassenger(id);
+            if(result){
+                JOptionPane.showMessageDialog(null, "Record Deleted Sucessfully","Sucess",JOptionPane.INFORMATION_MESSAGE);
+                clearText();
+                loadPassengerId();
+                tb.setRowCount(0);
+                loadPassengers(userId);
+                return;
+            }else
+                JOptionPane.showMessageDialog(null, "Sorry Record is not deleted","Incomplete",JOptionPane.ERROR_MESSAGE);
+
         }catch(SQLException se){
             JOptionPane.showMessageDialog(null, "Error in Database","Incomplete",JOptionPane.ERROR_MESSAGE);
             se.printStackTrace();
@@ -334,26 +290,30 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
             return;
         }
         try{
-            EmployeesPojo emp = new EmployeesPojo();
-            emp.setEmployeeId(txtId.getText());
-            emp.setEmployeeName(txtName.getText());
-            emp.setJob(txtJob.getText());
-            emp.setSalary(Double.parseDouble(txtSalary.getText()));
-            emp.setEmail(txtEmail.getText());
-            emp.setContact(txtContact.getText());
-            boolean result = EmployeesDAO.addEmployee(emp);
+            PassengerPojo p = new PassengerPojo();
+            p.setPid(txtId.getText());
+            p.setName(txtName.getText());
+            p.setContact(txtContact.getText());
+            p.setGender(jcGender.getSelectedItem().toString().charAt(0));
+            boolean result = PassengerDAO.addPassenger(p);
             if(result == true){
                 JOptionPane.showMessageDialog(null, "Record Added Sucessfully","Sucess",JOptionPane.INFORMATION_MESSAGE);
                 clearText();
-                loadEmpId();
+                loadPassengerId();
                 tb.setRowCount(0);
-                loadEmployees();
+                loadPassengers(userId);
+                int response = JOptionPane.showConfirmDialog(null, "Do you want to book ticket now !","Sucess",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+                if(response == JOptionPane.YES_OPTION){
+                    TicketFrame tf = new TicketFrame();
+                    tf.setVisible(true);
+                    this.dispose();
+                }
+                return;
             }else
-                JOptionPane.showMessageDialog(null, "Record not Added Sucessfully","UnSucess",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sorry Record is not Added","Incomplete",JOptionPane.ERROR_MESSAGE);
 
-        }
-        catch(SQLException se){
-            JOptionPane.showMessageDialog(null, "Error in database","Incomplete",JOptionPane.ERROR_MESSAGE);
+        }catch(SQLException se){
+            JOptionPane.showMessageDialog(null, "Error in Database","Incomplete",JOptionPane.ERROR_MESSAGE);
             se.printStackTrace();
             return;
         }
@@ -370,23 +330,22 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
             return;
         }
         try{
-            EmployeesPojo emp = new EmployeesPojo();
-            emp.setEmployeeId(txtId.getText());
-            emp.setEmployeeName(txtName.getText());
-            emp.setJob(txtJob.getText());
-            emp.setSalary(Double.parseDouble(txtSalary.getText()));
-            emp.setEmail(txtEmail.getText());
-            emp.setContact(txtContact.getText());
-            boolean result = EmployeesDAO.updateEmployee(emp);
+            PassengerPojo p = new PassengerPojo();
+            p.setPid(txtId.getText());
+            p.setName(txtName.getText());
+            p.setContact(txtContact.getText());
+            p.setGender(jcGender.getSelectedItem().toString().charAt(0));
+            boolean result = PassengerDAO.updatePassenger(p);
             if(result == true){
                 JOptionPane.showMessageDialog(null, "Record Updated Sucessfully","Sucess",JOptionPane.INFORMATION_MESSAGE);
                 clearText();
-                loadEmpId();
+                loadPassengerId();
                 tb.setRowCount(0);
-                loadEmployees();
+                loadPassengers(userId);
                 return;
-          }else
-            JOptionPane.showMessageDialog(null, "Sorry Record is not updated","Incomplete",JOptionPane.ERROR_MESSAGE);
+            }else
+                JOptionPane.showMessageDialog(null, "Sorry Record is not updated","Incomplete",JOptionPane.ERROR_MESSAGE);
+
         }catch(SQLException se){
             JOptionPane.showMessageDialog(null, "Error in Database","Incomplete",JOptionPane.ERROR_MESSAGE);
             se.printStackTrace();
@@ -399,22 +358,19 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void tbEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEmployeeMouseClicked
+    private void rbPassengerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbPassengerMouseClicked
         try{
-            int row = tbEmployee.getSelectedRow();
+            int row = rbPassenger.getSelectedRow();
             txtId.setText(tb.getValueAt(row, 0).toString());
             txtName.setText(tb.getValueAt(row, 1).toString());
-            txtJob.setText(tb.getValueAt(row, 2).toString());
-            txtSalary.setText(tb.getValueAt(row, 3).toString());
-            txtEmail.setText(tb.getValueAt(row, 4).toString());;
-            txtContact.setText(tb.getValueAt(row, 5).toString());
+            txtContact.setText(tb.getValueAt(row, 2).toString());
+            jcGender.setSelectedItem(tb.getValueAt(row, 3).toString());
         }catch(NullPointerException npe){
             System.out.println("Sorry");
             npe.printStackTrace();
         }
-        
-        
-    }//GEN-LAST:event_tbEmployeeMouseClicked
+
+    }//GEN-LAST:event_rbPassengerMouseClicked
 
     /**
      * @param args the command line arguments
@@ -433,20 +389,20 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageEmployeeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PassengerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageEmployeeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PassengerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageEmployeeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PassengerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageEmployeeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PassengerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageEmployeeFrame().setVisible(true);
+                new PassengerFrame().setVisible(true);
             }
         });
     }
@@ -457,82 +413,70 @@ public class ManageEmployeeFrame extends javax.swing.JFrame {
     private rojerusan.RSMaterialButtonCircle btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private com.toedter.components.JLocaleChooser jLocaleChooser1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcGender;
     private javax.swing.JLabel lblBack;
-    private rojerusan.RSTableMetro tbEmployee;
+    private rojerusan.RSTableMetro rbPassenger;
     private app.bolivia.swing.JCTextField txtContact;
-    private app.bolivia.swing.JCTextField txtEmail;
     private app.bolivia.swing.JCTextField txtId;
-    private app.bolivia.swing.JCTextField txtJob;
     private app.bolivia.swing.JCTextField txtName;
-    private app.bolivia.swing.JCTextField txtSalary;
     // End of variables declaration//GEN-END:variables
 
-    private void loadEmployees() {
-         try{
-            List<EmployeesPojo> empLists = EmployeesDAO.getAllEmployee();
-            tb = (DefaultTableModel)tbEmployee.getModel();
-            Object []emp = new Object[6];
-            for(EmployeesPojo empList: empLists){
-                emp[0] = empList.getEmployeeId();
-                emp[1] = empList.getEmployeeName();
-                emp[2] = empList.getJob();
-                emp[3] = empList.getSalary();
-                emp[4] = empList.getEmail();
-                emp[5] = empList.getContact();
-                tb.addRow(emp);
-            }
-        }catch(SQLException se){
-            JOptionPane.showMessageDialog(null, "Unable to connect with database", "Error", JOptionPane.ERROR_MESSAGE);
-            se.printStackTrace();
-        }
-    }
-    
-    private boolean isEmpty() {
-        String empName = txtName.getText().trim();
-        String job = txtJob.getText().trim();
-        String salary = txtSalary.getText().trim();
-        String email = txtEmail.getText().trim();
-        String contact = txtContact.getText().trim();
-        if(empName.isEmpty() || salary.isEmpty() || job.isEmpty() || email.isEmpty() || contact.isEmpty()){
-            return false;
-        }  
-        return true;
+    private void clearText() {
+        txtName.setText("");
+        txtContact.setText("");
+        jcGender.setSelectedIndex(0);
     }
 
-    private void loadEmpId() {
+    private void loadPassengerId() {
         try{
-            String empId = EmployeesDAO.getEmployeeId();
-            txtId.setText(empId);
+            String passengerId = PassengerDAO.getPassengerId();
+            txtId.setText(passengerId);
         }
         catch(SQLException se){
-            JOptionPane.showMessageDialog(null, "Unable to get employee id.","Error",JOptionPane.ERROR);
+            JOptionPane.showMessageDialog(null, "Unable to get passenger id.","Error",JOptionPane.ERROR);
             se.printStackTrace();
             return;
         }
     }
 
-    private void clearText() {
-        txtName.setText("");
-        txtJob.setText("");
-        txtSalary.setText("");
-        txtEmail.setText("");
-        txtContact.setText("");
-        
+    private void loadPassengers( String userId) {
+        try{
+            List<PassengerPojo> passengerLists = PassengerDAO.getAllPassenger(userId);
+            if(passengerLists.isEmpty()){
+                JOptionPane.showMessageDialog(null, "No Passenger Availabe ","Empty", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+            tb = (DefaultTableModel)rbPassenger.getModel();
+            Object []passenger = new Object[4];
+            for(PassengerPojo passengerList: passengerLists){
+                passenger[0] = passengerList.getPid();
+                passenger[1] = passengerList.getName();
+                passenger[2] = passengerList.getContact();
+                passenger[3] = passengerList.getGender();
+                tb.addRow(passenger);
+            }
+        }catch(SQLException se){
+            JOptionPane.showMessageDialog(null, "Unable to connect with database", "Error", JOptionPane.ERROR_MESSAGE);
+            se.printStackTrace();
+        }  
+    }
+
+    private boolean isEmpty() {
+        String name = txtName.getText().trim();
+        String contact = txtContact.getText().trim();
+        return !(name.isEmpty() || contact.isEmpty());
     }
 }
