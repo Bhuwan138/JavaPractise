@@ -1,13 +1,7 @@
 <component name="libraryTable">
   <library name="lib\ojdbc6.jar">
-    <CLASSES>
-      <root url="file://C:/oraclexe/app/oracle/product/11.2.0/server/jdbc/lib" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES />
-    <excluded>
-      <root url="jar://C:/oraclexe/app/oracle/product/11.2.0/server/jdbc/lib/ojdbc6.jar!/" />
-    </excluded>
-    <jarDirectory url="file://C:/oraclexe/app/oracle/product/11.2.0/server/jdbc/lib" recursive="false" />
   </library>
 </component>
