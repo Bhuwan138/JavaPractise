@@ -8,7 +8,7 @@ public class FileReadingDemo {
         FileReader fr = null;
 
         try {
-            fr = new FileReader("D:/bhuwan.txt");
+            fr = new FileReader("");
             BufferedReader br = new BufferedReader(fr);
 //            int count;
 //            File f = new File("D:/bhuwan.txt");

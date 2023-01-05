@@ -1,5 +1,6 @@
 package OtherPractise.BinarySearch;
 /*
+* github profile: https://leetcode.com/pandeybhuwan138/
 * https://leetcode.com/problems/find-peak-element/
 * 162. Find Peak Element
 * */

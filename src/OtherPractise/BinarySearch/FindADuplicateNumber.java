@@ -23,13 +23,5 @@ public class FindADuplicateNumber {
             slow = nums[slow];
         }
         return fast;
-//        int num = -1;
-//        for(int i=1;i< nums.length;i++){
-//            if(nums[i] == nums[i-1]){
-//                num = nums[i];
-//                break;
-//            }
-//        }
-//        return num;
     }
 }
