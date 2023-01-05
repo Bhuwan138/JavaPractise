@@ -14,7 +14,7 @@ public class DBConnection {
     static{
         try{
             Class.forName("oracle.jdbc.OracleDriver");
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@//DESKTOP-77KNAk2:1521/XE","bms","bms");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@//BHUWAN:1521/XE","bms","bms");
             JOptionPane.showMessageDialog(null, "Database Connected Sucessfully" , "DB connected" , JOptionPane.INFORMATION_MESSAGE);
 
         }
