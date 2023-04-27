@@ -4,11 +4,42 @@ import java.util.*;
 
 public class FrequencyCount_TwoArrSol {
     public static void main(String[] args) {
-        int[] arr = {10,5,10,5,10,8,5,10,2};
+        int[] arr = {10,5,2,10,5,10,8,5,10,2};
 //        frequency(arr);
-        hashMapSol(arr);
+        hashMapSoln(arr,arr.length);
 
     }
+
+    private static void hashMapSoln(int[] arr, int length) {
+        Map<Integer,Integer> map = new HashMap<>();
+
+        for(int i=1;i<=length;i++){
+            map.put(i,0);
+        }
+
+        for(Integer num:arr){
+            if(map.containsKey(num)){
+                map.put(num,map.get(num)+1);
+            }
+        }
+
+        System.out.println(map.keySet());
+        System.out.println(map.values());
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     private static void hashMapSol(int[] arr) {
         Map<Integer,Integer> map = new HashMap<>();
